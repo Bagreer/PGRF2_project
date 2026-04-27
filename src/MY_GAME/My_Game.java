@@ -1,0 +1,549 @@
+package MY_GAME;
+import MY_GAME.objects.Asteroid;
+import MY_GAME.objects.Fragment;
+import MY_GAME.objects.Projectile;
+import lwjglutils.*;
+import org.lwjgl.glfw.*;
+import org.lwjgl.opengl.*;
+import org.lwjgl.system.*;
+
+import transforms.*;
+
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.lwjgl.glfw.Callbacks.*;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glViewport;
+import static org.lwjgl.opengl.GL33.*;
+import static org.lwjgl.system.MemoryStack.*;
+import static org.lwjgl.system.MemoryUtil.*;
+
+/**
+ * GLSL sample:<br/>
+ * Draw two different geometries with two different shader programs<br/>
+ * Requires LWJGL3
+ *
+ * @author Michal Prause
+ * @version 1
+ * @since 2026-xx-xx
+ */
+
+public class My_Game {
+
+    // window size
+    int width = 1280, height = 800;
+    double ox, oy;
+
+    // speed of the spaceship
+    int speed = 30;
+
+    // key status
+    protected boolean holdingW = false;
+    protected boolean holdingA = false;
+    protected boolean holdingS = false;
+    protected boolean holdingD = false;
+
+    // I am speed (zrychlení)
+    protected boolean holdingL = false;
+
+    // The window handle
+    private long window;
+
+    // PŘIDEJ TOTO:
+    OGLModelOBJ spaceship;
+    OGLModelOBJ portal;
+    OGLBuffers buffers;
+
+    int shaderProgram, locMat;
+
+    // camera things
+    boolean depthTest = true, cCW = true, renderFront = false, renderBack = false;
+    Camera cam = new Camera();
+    double currentFov = Math.PI / 4;
+    Mat4 proj = new Mat4PerspRH(Math.PI / 4, height / (double) width, 0.01, 1000.0);
+
+
+    // Objects
+    List<Fragment> fragments = new ArrayList<>(); // PŘIDÁNO: Seznam pro exploze
+    List<Asteroid> poleAsteroidu = new ArrayList<>();
+    int numberOfAsteroids = 10000;
+    List<Projectile> projectiles = new ArrayList<>();
+    boolean canShoot = true;
+
+    Vec3D portalPos = new  Vec3D(500,0,0);
+
+    double time = glfwGetTime();
+
+    /**
+     * initializes all objects
+     */
+    private void init() {
+        // Set up an error callback. The default implementation
+        // will print the error message in System.err.
+        GLFWErrorCallback.createPrint(System.err).set();
+        // Initialize GLFW. Most GLFW functions will not work before doing this.
+        if ( !glfwInit() )
+            throw new IllegalStateException("Unable to initialize GLFW");
+
+        // Configure GLFW
+        glfwDefaultWindowHints(); // optional, the current window hints are already the default
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+
+        // Create the window
+        window = glfwCreateWindow(width, height, "PGRF2 - PRAUSE MICHAL", NULL, NULL);
+        if ( window == NULL )
+            throw new RuntimeException("Failed to create the GLFW window");
+
+        // LISTENERY
+        glfwSetKeyCallback(window, new InputController(this));
+
+
+        glfwSetFramebufferSizeCallback(window, new GLFWFramebufferSizeCallback() {
+            @Override
+            public void invoke(long window, int w, int h) {
+                if (w > 0 && h > 0 &&
+                        (w != width || h != height)) {
+                    width = w;
+                    height = h;
+                    proj = new Mat4PerspRH(currentFov, height / (double) width, 0.01, 1000.0);
+                }
+            }
+        });
+
+        // Get the thread stack and push a new frame
+        try ( MemoryStack stack = stackPush() ) {
+            IntBuffer pWidth = stack.mallocInt(1); // int*
+            IntBuffer pHeight = stack.mallocInt(1); // int*
+
+            // Get the window size passed to glfwCreateWindow
+            glfwGetWindowSize(window, pWidth, pHeight);
+
+            // Get the resolution of the primary monitor
+            GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+            // Center the window
+            glfwSetWindowPos(
+                    window,
+                    (vidmode.width() - pWidth.get(0)) / 2,
+                    (vidmode.height() - pHeight.get(0)) / 2
+            );
+        } // the stack frame is popped automatically
+
+        // Make the OpenGL context current
+        glfwMakeContextCurrent(window);
+        // Enable v-sync
+        glfwSwapInterval(1);
+
+        // Make the window visible
+        glfwShowWindow(window);
+
+        // This line is critical for LWJGL's interoperation with GLFW's
+        // OpenGL context, or any context that is managed externally.
+        // LWJGL detects the context that is current in the current thread,
+        // creates the GLCapabilities instance and makes the OpenGL
+        // bindings available for use.
+        GL.createCapabilities();
+
+        OGLUtils.printOGLparameters();
+
+        // Background color
+        glClearColor(0f, 0f, 0f, 1.0f);
+
+        shaderProgram = ShaderUtils.loadProgram("/MY_GAME/simple");
+
+        glUseProgram(this.shaderProgram);
+
+        locMat = glGetUniformLocation(shaderProgram, "mat");
+
+        cam = cam.withPosition(new Vec3D(5, 5, 2.5))
+                .withAzimuth(Math.PI * 1.25)
+                .withZenith(Math.PI * -0.125);
+
+
+//        spawnPortal();
+        System.out.println("Position of the portal is: " + portalPos.toString());
+//
+//        cam = cam.withPosition(new Vec3D(10, 10, 5))
+//                .withAzimuth(Math.toRadians(-90))
+//                .withZenith(Math.toRadians(90));
+
+
+
+        glDisable(GL_CULL_FACE);
+
+
+        // TADY TEPRVE NAČTEME LOĎ (Karta už běží)
+        spaceship = new OGLModelOBJ("/MY_GAME/objects/Spaceship.obj");
+        portal =  new OGLModelOBJ("/MY_GAME/objects/Portal.obj");
+
+
+        generateAsteroids();
+    }
+
+    /**
+     * repears every single frame
+     */
+    private void loop() {
+        while ( !glfwWindowShouldClose(window) ) {
+
+            // 1. Zpracování vstupu a pohybu
+            turn();
+            cam = cam.forward(speed / 100.0);
+            if (holdingL) cam = cam.forward(speed / 50.0);
+
+            // Střelba
+            if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && canShoot) {
+                Mat4 viewMat = cam.getViewMatrix();
+                Vec3D camRight = new Vec3D(viewMat.get(0, 0), viewMat.get(1, 0), viewMat.get(2, 0));
+                Vec3D camUp = new Vec3D(viewMat.get(0, 1), viewMat.get(1, 1), viewMat.get(2, 1));
+                Vec3D camForward = new Vec3D(viewMat.get(0, 2), viewMat.get(1, 2), viewMat.get(2, 2)).mul(-1);
+                Vec3D startingPosition = cam.getPosition().add(camForward.mul(4.0)).add(camUp.mul(-1.3));
+                projectiles.add(new Projectile(startingPosition, camForward, camRight, camUp));
+                canShoot = false;
+            } else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE) {
+                canShoot = true;
+            }
+
+
+            // FOV a zpomalení
+            double targetFov = holdingL ? Math.PI / 3 : Math.PI / 4;
+            currentFov += (targetFov - currentFov) * 0.1;
+//            slowDown();
+            proj = new Mat4PerspRH(currentFov, height / (double) width, 0.01, 1000.0);
+
+            // 2. Příprava OpenGL
+            glViewport(0, 0, width, height);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glEnable(GL_DEPTH_TEST);
+            glUseProgram(shaderProgram);
+
+            // Předvýpočet matice pro asteroidy (ŠETŘÍ VÝKON)
+            Mat4 viewProj = cam.getViewMatrix().mul(proj);
+
+//            System.out.println("Camera position: " + cam.getPosition());
+
+            // 3. VYKRESLENÍ SVĚTA A ASTEROIDŮ
+            for (int i = poleAsteroidu.size() - 1; i >= 0; i--) {
+                Asteroid ast = poleAsteroidu.get(i);
+                Vec3D astPos = ast.getPosition();
+
+                // V loop() uvnitř cyklu asteroidů:
+                double dist = astPos.sub(cam.getPosition()).length();
+
+//                System.out.println("cam position: " + cam.getPosition());
+//                System.out.println("Asteroid position: " + astPos.toString());
+//                System.out.println("distance from camera: " + dist);
+//                System.out.println("distance: " + dist);
+
+                if (dist > 150.0) {
+                    // 1. Vygenerujeme náhodný bod v krychli -1 až 1
+                    double rx = (Math.random() * 2.0) - 1.0;
+                    double ry = (Math.random() * 2.0) - 1.0;
+                    double rz = (Math.random() * 2.0) - 1.0;
+
+                    // 2. Normalizujeme ho na jednotkovou délku (získáme směr na kouli)
+                    double mag = Math.sqrt(rx * rx + ry * ry + rz * rz);
+                    if (mag < 0.0001) {
+                        rx = 0;
+                        ry = 1;
+                        rz = 0;
+                        mag = 1;
+                    } // Sychr proti nule
+
+//                    System.out.println("asteroid DELETED (" + astPos.toString() + ")");
+
+                    Vec3D smer = new Vec3D(rx / mag, ry / mag, rz / mag);
+
+                    // 3. Spawnovací poloměr (těsně pod limitem 150)
+                    double r = 145.0;
+
+                    // 4. KLÍČOVÝ KROK: Nová pozice je VŽDY relativní k aktuální kameře
+                    ast.setPosition(cam.getPosition().add(smer.mul(r)));
+                    continue;
+                }
+
+                // Kolize se střelami
+                boolean znicen = false;
+                for (int j = projectiles.size() - 1; j >= 0; j--) {
+                    if (astPos.sub(projectiles.get(j).getPosition()).length() < ast.getScale() + 0.3) {
+                        projectiles.remove(j);
+                        znicen = true;
+                        break;
+                    }
+                }
+
+                if (znicen) {
+                    // --- PŘIDÁNO: Exploze! Spawneme 4 až 7 malých úlomků ---
+                    int pocetUlomku = 4 + (int)(Math.random() * 4);
+                    for (int u = 0; u < pocetUlomku; u++) {
+                        // Předáme jim pozici a model zničeného asteroidu
+                        fragments.add(new Fragment(ast.getPosition(), ast.getScale(), ast.getBuffers()));
+                    }
+
+                    // Reset asteroidu dopředu (tvůj stávající kód)
+                    double spawnDistance = 200.0 + (Math.random() * 50.0);
+                    ast.setPosition(cam.getPosition().add(cam.getViewVector().mul(spawnDistance)));
+                    continue;
+                }
+
+
+                // TimeStop
+                if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+                    speed = 0;
+                    ast.setVelocity(new  Vec3D(0, 0, 0));
+                } else {
+                    speed = 30;
+                }
+
+                // Kolize s lodí (HUD space)
+                Point3D astKamera = new Point3D(astPos).mul(cam.getViewMatrix());
+                double distShip = Math.sqrt(Math.pow(astKamera.getX(), 2) + Math.pow(astKamera.getY() + 1.2, 2) + Math.pow(astKamera.getZ() + 4.0, 2));
+                if (distShip <= ast.getScale() + ast.getScale() / 10) {
+                    System.out.println("YOU LOSE");
+                    glfwSetWindowShouldClose(window, true);
+                    return;
+                }
+
+                // Kreslení asteroidu
+                ast.move();
+                glUniformMatrix4fv(locMat, false, ToFloatArray.convert(ast.getModelMatrix().mul(viewProj)));
+                ast.getBuffers().draw(GL_TRIANGLES, shaderProgram);
+            }
+
+
+//            System.out.println("Camera position: " + cam.getPosition());
+
+            // 4. VYKRESLENÍ LASERŮ
+            for (int i = projectiles.size() - 1; i >= 0; i--) {
+                Projectile p = projectiles.get(i);
+                p.move();
+                if (p.getPosition().sub(cam.getPosition()).length() > 300) {
+                    projectiles.remove(i);
+                } else {
+                    glUniformMatrix4fv(locMat, false, ToFloatArray.convert(p.getModelMatrix().mul(viewProj)));
+                    p.getBuffers().draw(GL_TRIANGLES, shaderProgram);
+                }
+            }
+
+            // 5. VYKRESLENÍ LODĚ (HUD)
+            Mat4 modelLod = new Mat4Scale(0.1)
+                    .mul(new Mat4RotY(Math.toRadians(180)))
+                    .mul(new Mat4RotX(Math.toRadians(5)));
+
+            // Přidání náklonu při zatáčení
+            if (holdingA) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(10)));
+            if (holdingD) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(-10)));
+
+            // HUD
+            modelLod = modelLod.mul(new Mat4Transl(0.0, -1.0, -4.0));
+            glUniformMatrix4fv(locMat, false, ToFloatArray.convert(modelLod.mul(proj)));
+            spaceship.getBuffers().draw(spaceship.getTopology(), shaderProgram);
+
+            // 6. VYKRESLENÍ PORTÁLU
+            Mat4 maticePortal = new Mat4Scale(2.5) // Trochu menší, jak jsi chtěl
+                    .mul(new Mat4RotY(Math.PI/2)) // Natočení čelem k lodi
+                    .mul(new Mat4Transl(portalPos))   // Přesun na náhodnou pozici
+                    .mul(viewProj);                   // Projekce a kamera
+
+            glUniformMatrix4fv(locMat, false, ToFloatArray.convert(maticePortal));
+            portal.getBuffers().draw(portal.getTopology(), shaderProgram);
+
+            double distToPortal = cam.getPosition().sub(portalPos).length();
+            if (distToPortal < 5) {
+                System.out.println("YOU WIN!!!");
+                glfwSetWindowShouldClose(window, true);
+            }
+
+            // VYKRESLENÍ ÚLOMKŮ
+            for (int i = fragments.size() - 1; i >= 0; i--) {
+                Fragment u = fragments.get(i);
+
+                if (u.moveAndCheck()) {
+                    fragments.remove(i); // Smazání po vypršení životnosti
+                } else {
+                    glUniformMatrix4fv(locMat, false, ToFloatArray.convert(u.getModelMatrix().mul(viewProj)));
+                    u.getBuffers().draw(GL_TRIANGLES, shaderProgram);
+                }
+            }
+
+//            double maxY = 0;
+//            for (int i = 0; i < poleAsteroidu.size(); i++) {
+//                double curY = poleAsteroidu.get(i).getPosition().getY();
+//                if (poleAsteroidu.get(i).getPosition().getY() > maxY) {
+//                    maxY = curY;
+//                }
+//            }
+//
+//            System.out.println("Max Y level: " + maxY);
+
+            glfwSwapBuffers(window);
+            glfwPollEvents();
+        }
+    }
+
+    public void run() {
+        try {
+            init();
+            loop();
+
+            glfwFreeCallbacks(window);
+            glfwDestroyWindow(window);
+
+        } catch (Throwable t) {
+            t.printStackTrace();
+        } finally {
+            // Terminate GLFW and free the error callback
+            glDeleteProgram(shaderProgram);
+            glfwTerminate();
+            glfwSetErrorCallback(null).free();
+        }
+
+    }
+
+    /**
+     * generates asteroids in a cube (200x200x200)
+     */
+    public void generateAsteroids() {
+        for (int i = 0; i < numberOfAsteroids; i++) {
+            double x, y, z;
+            double distFromPlayer;
+
+            do {
+                x = (Math.random() * 200.0) - 100.0; // left right   (-100,100)
+                y = (Math.random() * 200.0) - 100.0; // up down      (-100,100)
+                z = (Math.random() * 200.0) - 100.0; // front back   (-100,100)
+
+                distFromPlayer = Math.sqrt(x*x + y*y + z*z);
+
+            } while (distFromPlayer < 20.0);
+
+            double scale = 0.5 + (Math.random() * 2);
+
+            poleAsteroidu.add(new Asteroid(new Vec3D(x, y, z), scale));
+        }
+    }
+
+
+    /**
+     * randomly generates portal coords
+     */
+    void spawnPortal() {
+        // Náhodný úhel kolem dokola (360°)
+        double alpha = Math.random() * 2 * Math.PI;
+
+        // Omezíme výšku (beta) jen na malý rozptyl kolem roviny (např. +/- 5 stupňů)
+        // Aby nebyl přesně v nule, což je nuda, ale ani nad hlavou
+        double beta = (Math.random() - 0.5) * Math.toRadians(10);
+
+        double dist = 800.0; // Vzdálenost
+
+        double px = Math.cos(beta) * Math.cos(alpha) * dist;
+        double py = Math.sin(beta) * dist;
+        double pz = Math.cos(beta) * Math.sin(alpha) * dist;
+
+        portalPos = new Vec3D(px, py, pz);
+
+        System.out.println("Portál čeká na: " + portalPos.toString());
+    }
+
+    /**
+     * slows down ship when turning
+     */
+    public void slowDown() {
+        if (holdingW || holdingA || holdingS || holdingD) {
+            speed *= 0.99;
+            double targetFov;
+
+            if (holdingW || holdingA || holdingS || holdingD) {
+                speed *= 0.99;
+                targetFov = Math.toRadians(40);
+            } else {
+                speed = 30;
+                targetFov = Math.toRadians(45);
+            }
+
+            currentFov += (targetFov - currentFov) * 0.1;
+
+        } else {
+            speed = 30;
+        }
+
+    }
+
+    // METHODS FOR MOVING
+    public void turn() {
+        turnUp();
+        turnDown();
+        turnLeft();
+        turnRight();
+    }
+
+    float TURNING_RATE_IN_DEGREES = (float) Math.toRadians(1.0); // 0,5 - 1 je celkem fajn
+    public void turnLeft() {
+        if (holdingA) {
+            cam = cam.addAzimuth(TURNING_RATE_IN_DEGREES);
+        }
+    }
+    public void turnRight() {
+        if (holdingD) {
+            cam = cam.addAzimuth(-TURNING_RATE_IN_DEGREES);
+        }
+    }
+    public void turnUp() {
+        if (holdingW) {
+            cam = cam.addZenith(TURNING_RATE_IN_DEGREES);
+        }
+    }
+    public void turnDown() {
+        if (holdingS) {
+            cam = cam.addZenith(-TURNING_RATE_IN_DEGREES);
+        }
+    }
+
+
+    // FOR RUNNING THE APP
+    public static void main(String[] args) {
+        new My_Game().run();
+    }
+}
+
+
+// TODO uklidit kód
+// TODO nejde se otočit o 360 dolu a nahoru (problém s implementací stávající kamery)
+// TODO upgrady
+// TODO smooth animace zatáčení (rotace lodě)
+// TODO textury
+// TODO skybox
+// TODO šipka navádějící k portálu
+// TODO more complicated gameplay (levely nebo portál dále)
+// TODO infobox (autor a nějaké další blbosti) start,options,quit
+// TODO zvuky ??
+// TODO palivo / životy lodě
+// TODO .mtl soubor (textura)
+// TODO F bude fungovat na zapínání, ne jenom po dobu držení
+
+
+
+// hotové věci z todo
+// změna FOV při zrychlení/zpomalení
+// náklon lodi při zatáčení by mohlo vypadat dobře
+// "animace" asteroidů (pohyb a otáčení)
+// spomalení při zatáčení
+// kolize
+// střílení
+// kolize doladit aby se něco stalo (viz. #418)
+// kolize střílení
+// dořešit mizení asteroidů mimo kameru (funguje jenom směrem dolů)
+// portál
+// vylepšení vzhledu lodi / asteroidů
+// cooldown na střílení
+
+
+// animace asteroidů (fragment)
+// safespace okolo hráče.

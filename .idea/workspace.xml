@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="first commit" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Bagreer&quot;
+  }
+}</component>
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;prausmi1&quot;,
+      &quot;fullname&quot;: &quot;Michal Prause&quot;
+    }
+  }
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;https://gitlab.com/Bruno.Jezek/lwjgl-samples&quot;,
+    &quot;second&quot;: &quot;324dca86-d525-4ab0-b97b-62b5469f9f04&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Bagreer/PGRF2-project.git&quot;,
+    &quot;accountId&quot;: &quot;60fe419f-9b4f-48d0-9714-40082566633f&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3BkntdtIFHgTauStj2mCPa72OOe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "Application.HelloWorld.executor": "Run",
+    "Application.My_Game.executor": "Run",
+    "Application.lvl0fixpipeline.p02elements.App.executor": "Run",
+    "Application.lvl0fixpipeline.p03transforms.App.executor": "Run",
+    "Application.lvl0fixpipeline.p05texture.App.executor": "Run",
+    "Application.lvl1basic.p00.p02withUtils.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p01start.p06depthbuffer.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p01start.p07text.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p02geometry.p01cube.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p02geometry.p03obj.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p03texture.p01intro.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p03texture.p03multiple.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p04target.p01intro.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p04target.p03postproces.HelloWorld.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Michal Prause/IdeaProjects/lwjgl-samples/src/MY_GAME",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders\MY_GAME\simple" />
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders\MY_GAME" />
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME\objects" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.My_Game">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lvl0fixpipeline.global.App" />
+      <module name="lwjgl-samples" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lvl0fixpipeline.global.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HelloWorld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lvl1basic.p02geometry.p01cube.HelloWorld" />
+      <module name="lwjgl-samples" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lvl1basic.p02geometry.p01cube.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="My_Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MY_GAME.My_Game" />
+      <module name="lwjgl-samples" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MY_GAME.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lvl1basic.p02geometry.p03obj.HelloWorld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lvl1basic.p02geometry.p03obj.HelloWorld" />
+      <module name="lwjgl-samples" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lvl1basic.p02geometry.p03obj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lvl1basic.p04target.p03postproces.HelloWorld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="lvl1basic.p04target.p03postproces.HelloWorld" />
+      <module name="lwjgl-samples" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="lvl1basic.p04target.p03postproces.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.My_Game" />
+        <item itemvalue="Application.lvl1basic.p02geometry.p03obj.HelloWorld" />
+        <item itemvalue="Application.HelloWorld" />
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.lvl1basic.p04target.p03postproces.HelloWorld" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="" />
+      <created>1775042152101</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1775042152101</updated>
+      <workItem from="1775042153187" duration="6117000" />
+      <workItem from="1775560437469" duration="12000" />
+      <workItem from="1775646910435" duration="10297000" />
+      <workItem from="1775734183125" duration="13759000" />
+      <workItem from="1775826966304" duration="8677000" />
+      <workItem from="1775915283821" duration="7377000" />
+      <workItem from="1776158436797" duration="735000" />
+      <workItem from="1776181918557" duration="14000" />
+      <workItem from="1776253901227" duration="185000" />
+      <workItem from="1776431778740" duration="3365000" />
+      <workItem from="1776517640533" duration="6364000" />
+      <workItem from="1776599073346" duration="2413000" />
+      <workItem from="1776601600205" duration="5622000" />
+      <workItem from="1776625661969" duration="1634000" />
+      <workItem from="1776629908727" duration="106000" />
+      <workItem from="1776771048547" duration="3733000" />
+      <workItem from="1776856497012" duration="1122000" />
+      <workItem from="1776857650484" duration="3181000" />
+      <workItem from="1776861230435" duration="34000" />
+      <workItem from="1777294089308" duration="4777000" />
+      <workItem from="1777298948965" duration="6046000" />
+    </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <option name="closed" value="true" />
+      <created>1777298906830</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1777298906830</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/src/lwjglutils" />
+      <path value="$PROJECT_DIR$/src/transforms" />
+      <path value="https:/github.com/Bagreer/PGRF2_project/" />
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="first commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="poleAsteroidu" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
