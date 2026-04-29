@@ -4,18 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="updating skybox">
-      <change afterPath="$PROJECT_DIR$/res/textures/asteroid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/seamlessSpace.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/asteroid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/seamlessSpace.png" afterDir="false" />
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="skybox done (texture)">
+      <change afterPath="$PROJECT_DIR$/res/textures/metal-texture.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/metal-texture.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/skybox.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/skybox.vert" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/skybox.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/skybox.vert" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/skybox.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/skybox.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/8.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,6 +121,7 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\res\textures" />
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders\MY_GAME\simple\textures" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME\textures" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME" />
     </key>
@@ -236,7 +248,7 @@
       <workItem from="1777375616733" duration="10591000" />
       <workItem from="1777445618992" duration="9000" />
       <workItem from="1777459903690" duration="2633000" />
-      <workItem from="1777462925094" duration="1073000" />
+      <workItem from="1777462925094" duration="4085000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -262,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777460373802</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="skybox done (texture)">
+      <option name="closed" value="true" />
+      <created>1777464254011</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1777464254011</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +308,8 @@
     </ignored-roots>
     <MESSAGE value="first commit" />
     <MESSAGE value="preparing skybox textures" />
-    <option name="LAST_COMMIT_MESSAGE" value="preparing skybox textures" />
+    <MESSAGE value="skybox done (texture)" />
+    <option name="LAST_COMMIT_MESSAGE" value="skybox done (texture)" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
