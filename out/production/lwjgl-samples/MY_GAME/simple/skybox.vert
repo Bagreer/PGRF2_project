@@ -2,7 +2,8 @@
 in vec3 inPosition;
 out vec3 texCoords;
 uniform mat4 mat;
+
 void main() {
-    texCoords = inPosition; // Pozice vertexu kostky slouží přímo jako směr do Cubemapy
+    texCoords = inPosition; // Směr do cubemapy zůstává stejný bez ohledu na scale
     gl_Position = mat * vec4(inPosition, 1.0);
 }

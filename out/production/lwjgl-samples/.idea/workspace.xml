@@ -4,23 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/res/textures/11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/textures/8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/skybox.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/skybox.vert" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MY_GAME/objects/spaceshipTexture.mtl" afterDir="false" />
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="updating skybox">
+      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/asteroid.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,11 +106,11 @@
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders\MY_GAME\simple\textures" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders\MY_GAME\simple" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\res\textures" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME\objects" />
-      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders\MY_GAME" />
     </key>
   </component>
   <component name="RunManager" selected="Application.My_Game">
@@ -239,6 +227,7 @@
       <workItem from="1777298948965" duration="6235000" />
       <workItem from="1777375616733" duration="10591000" />
       <workItem from="1777445618992" duration="9000" />
+      <workItem from="1777459903690" duration="2633000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -256,7 +245,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777315656146</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="preparing skybox textures">
+      <option name="closed" value="true" />
+      <created>1777460373802</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1777460373802</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,14 +278,15 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="preparing skybox textures" />
+    <option name="LAST_COMMIT_MESSAGE" value="preparing skybox textures" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MY_GAME/My_Game.java</url>
-          <line>205</line>
+          <line>206</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -46,6 +46,8 @@ public class My_Game {
     OGLTextureCube skybox;
     OGLBuffers skyboxBuffers; // Pro uložení geometrie kostky
     int skyboxShader;
+    OGLTexture2D asteroidTexture;
+
 
     // key status
     protected boolean holdingW = false;
@@ -103,8 +105,8 @@ public class My_Game {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
-        // Create the window
-        window = glfwCreateWindow(width, height, "PGRF2 - PRAUSE MICHAL", NULL, NULL);
+        // Create the windowd
+        window = glfwCreateWindow(width, height, "PRAUSE MICHAL - escaping space | PGRF2 | cv08", NULL, NULL);
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
@@ -173,8 +175,7 @@ public class My_Game {
                 .withAzimuth(Math.PI * 1.25)
                 .withZenith(Math.PI * -0.125);
 
-
-        // V init() metody My_Game:
+        asteroidTexture = new OGLTexture2D("MY_GAME/asteroid.png"); // Využijeme soubor, který už máš
 
         float[] cubeVertices = {
                 // Pozice (x, y, z) - stačí 8 rohů kostky
@@ -204,16 +205,16 @@ public class My_Game {
         skyboxBuffers = new OGLBuffers(cubeVertices, attributes, cubeIndices);
 
         String[] skyboxFiles = {
-                "res/textures/3.jpg",  // +X
-                "res/textures/5.jpg",  // -X
-                "res/textures/6.jpg",  // +Y
-                "res/textures/7.jpg",  // -Y
-                "res/textures/8.jpg",  // +Z
-                "res/textures/11.jpg"  // -Z
+                "res/textures/seamlessSpace.png",  // +X
+                "res/textures/seamlessSpace.png",  // -X
+                "res/textures/seamlessSpace.png",  // +Y
+                "res/textures/seamlessSpace.png",  // -Y
+                "res/textures/seamlessSpace.png",  // +Z
+                "res/textures/seamlessSpace.png"  // -Z
         };
         skybox = new OGLTextureCube(skyboxFiles);
-        skyboxShader = ShaderUtils.loadProgram("/MY_GAME/skybox");
-
+// V metodě init() - změň cestu, aby obsahovala i složku 'simple'
+        skyboxShader = ShaderUtils.loadProgram("/MY_GAME/simple/skybox");
 //        spawnPortal();
         System.out.println("Position of the portal is: " + portalPos.toString());
 //
@@ -240,21 +241,42 @@ public class My_Game {
     private void loop() {
         while ( !glfwWindowShouldClose(window) ) {
 
-            // 1. PŘÍPRAVA (Jen jednou a na začátku!)
+            // 1. NEJDŘÍV PŘÍPRAVA
             glViewport(0, 0, width, height);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // 2. SKYBOX
-            glDisable(GL_DEPTH_TEST);
+            // 2. SKYBOX (Vykreslení hvězd na pozadí)
+            glDisable(GL_DEPTH_TEST); // Skybox je v nekonečnu, ignorujeme hloubku
             glUseProgram(skyboxShader);
-            // ... (nastavení matice a skyboxBuffers.draw) ...
-            glEnable(GL_DEPTH_TEST);
 
-            // 3. LOGIKA (turn, cam.forward...)
+            Mat4 skyView = cam.getViewMatrix();
+            // Odstranění translace (poslední sloupec matice), aby Skybox letěl s námi
+            skyView = skyView   .withElement(3, 0, 0.0)
+                                .withElement(3, 1, 0.0)
+                                .withElement(3, 2, 0.0);
+
+            // V této knihovně násobíme View * Proj
+            Mat4 skyMat = skyView.mul(proj);
+
+            glUniformMatrix4fv(glGetUniformLocation(skyboxShader, "mat"), false,
+                    ToFloatArray.convert(skyMat));
+
+            skybox.bind(skyboxShader, "skyboxTexture", 0);
+            skyboxBuffers.draw(GL_TRIANGLES, skyboxShader);
+
+            glEnable(GL_DEPTH_TEST); // Znovu zapneme hloubku pro objekty
+
+            // 3. LOGIKA POHYBU (Asteroidy, Loď...)
             turn();
             cam = cam.forward(speed / 100.0);
-            if (holdingL) cam = cam.forward(speed / 50.0);
 
+            // 4. VYKRESLENÍ OBJEKTŮ (Tady přepneme texturu!)
+            glUseProgram(shaderProgram);
+            // KLÍČOVÝ KROK: Nabindujeme texturu asteroidu, aby "přebila" Skybox
+            asteroidTexture.bind(shaderProgram, "drawTexture", 0);
+
+            Mat4 viewProj = cam.getViewMatrix().mul(proj);
+            // ... následuje tvůj cyklus pro asteroidy ...
             // Střelba
             if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && canShoot) {
                 Mat4 viewMat = cam.getViewMatrix();
@@ -268,7 +290,6 @@ public class My_Game {
                 canShoot = true;
             }
 
-
             // FOV a zpomalení
             double targetFov = holdingL ? Math.PI / 3 : Math.PI / 4;
             currentFov += (targetFov - currentFov) * 0.1;
@@ -276,7 +297,7 @@ public class My_Game {
             proj = new Mat4PerspRH(currentFov, height / (double) width, 0.01, 1000.0);
 
             // Předvýpočet matice pro asteroidy (ŠETŘÍ VÝKON)
-            Mat4 viewProj = cam.getViewMatrix().mul(proj);
+            viewProj = cam.getViewMatrix().mul(proj);
 
 //            System.out.println("Camera position: " + cam.getPosition());
 
@@ -396,6 +417,7 @@ public class My_Game {
             glUniformMatrix4fv(locMat, false, ToFloatArray.convert(modelLod.mul(proj)));
             spaceship.getBuffers().draw(spaceship.getTopology(), shaderProgram);
 
+
             // 6. VYKRESLENÍ PORTÁLU
             Mat4 maticePortal = new Mat4Scale(2.5) // Trochu menší, jak jsi chtěl
                     .mul(new Mat4RotY(Math.PI/2)) // Natočení čelem k lodi
@@ -422,16 +444,6 @@ public class My_Game {
                     u.getBuffers().draw(GL_TRIANGLES, shaderProgram);
                 }
             }
-
-//            double maxY = 0;
-//            for (int i = 0; i < poleAsteroidu.size(); i++) {
-//                double curY = poleAsteroidu.get(i).getPosition().getY();
-//                if (poleAsteroidu.get(i).getPosition().getY() > maxY) {
-//                    maxY = curY;
-//                }
-//            }
-//
-//            System.out.println("Max Y level: " + maxY);
 
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -566,18 +578,18 @@ public class My_Game {
 
 
 // TODO uklidit kód
-// TODO nejde se otočit o 360 dolu a nahoru (problém s implementací stávající kamery)
 // TODO upgrady
 // TODO smooth animace zatáčení (rotace lodě)
-// TODO textury
-// TODO skybox
 // TODO šipka navádějící k portálu
 // TODO more complicated gameplay (levely nebo portál dále)
 // TODO infobox (autor a nějaké další blbosti) start,options,quit
-// TODO zvuky ??
 // TODO palivo / životy lodě
 // TODO .mtl soubor (textura)
 
+
+// nevyřešeno
+// zvuky
+// otáčení kamery nezávisle na prostoru
 
 // hotové věci z todo
 // změna FOV při zrychlení/zpomalení
@@ -596,3 +608,7 @@ public class My_Game {
 
 // animace asteroidů (fragment)
 // safespace okolo hráče.
+
+
+// skybox
+// skybox upscaling + pohyb
