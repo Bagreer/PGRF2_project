@@ -47,7 +47,7 @@ public class My_Game {
     OGLBuffers skyboxBuffers; // Pro uložení geometrie kostky
     int skyboxShader;
     OGLTexture2D asteroidTexture;
-
+    OGLTexture2D spaceshipTexture;
 
     // key status
     protected boolean holdingW = false;
@@ -204,6 +204,8 @@ public class My_Game {
 
         skyboxBuffers = new OGLBuffers(cubeVertices, attributes, cubeIndices);
 
+        spaceshipTexture = new OGLTexture2D("res/textures/metal-texture.jpg");
+
         String[] skyboxFiles = {
                 "res/textures/seamlessSpace.png",  // +X
                 "res/textures/seamlessSpace.png",  // -X
@@ -240,6 +242,7 @@ public class My_Game {
      */
     private void loop() {
         while ( !glfwWindowShouldClose(window) ) {
+
 
             // 1. NEJDŘÍV PŘÍPRAVA
             glViewport(0, 0, width, height);
@@ -388,7 +391,6 @@ public class My_Game {
                 ast.getBuffers().draw(GL_TRIANGLES, shaderProgram);
             }
 
-
 //            System.out.println("Camera position: " + cam.getPosition());
 
             // 4. VYKRESLENÍ LASERŮ
@@ -415,6 +417,7 @@ public class My_Game {
             // HUD
             modelLod = modelLod.mul(new Mat4Transl(0.0, -1.0, -4.0));
             glUniformMatrix4fv(locMat, false, ToFloatArray.convert(modelLod.mul(proj)));
+            spaceshipTexture.bind(shaderProgram, "drawTexture", 0);
             spaceship.getBuffers().draw(spaceship.getTopology(), shaderProgram);
 
 
@@ -520,7 +523,7 @@ public class My_Game {
      */
     public void slowDown() {
         if (holdingW || holdingA || holdingS || holdingD) {
-            speed *= 0.99;
+            speed *= 0.95;
             double targetFov;
 
             if (holdingW || holdingA || holdingS || holdingD) {
@@ -579,10 +582,9 @@ public class My_Game {
 
 // TODO uklidit kód
 // TODO upgrady
-// TODO smooth animace zatáčení (rotace lodě)
 // TODO šipka navádějící k portálu
 // TODO more complicated gameplay (levely nebo portál dále)
-// TODO infobox (autor a nějaké další blbosti) start,options,quit
+// TODO infobox (autor a nějaké další blbosti) start,options,quit (jakoby asi mam infobox, ale aspoň ten endscreen)
 // TODO palivo / životy lodě
 // TODO .mtl soubor (textura)
 
@@ -590,6 +592,8 @@ public class My_Game {
 // nevyřešeno
 // zvuky
 // otáčení kamery nezávisle na prostoru
+// smooth animace zatáčení (rotace lodě)
+
 
 // hotové věci z todo
 // změna FOV při zrychlení/zpomalení
@@ -605,10 +609,8 @@ public class My_Game {
 // vylepšení vzhledu lodi / asteroidů
 // cooldown na střílení
 
-
 // animace asteroidů (fragment)
 // safespace okolo hráče.
-
 
 // skybox
 // skybox upscaling + pohyb
