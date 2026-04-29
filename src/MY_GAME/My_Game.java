@@ -9,6 +9,7 @@ import org.lwjgl.system.*;
 
 import transforms.*;
 
+import java.io.IOException;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +43,18 @@ public class My_Game {
     // speed of the spaceship
     int speed = 30;
 
+    OGLTextureCube skybox;
+    OGLBuffers skyboxBuffers; // Pro uložení geometrie kostky
+    int skyboxShader;
+
     // key status
     protected boolean holdingW = false;
     protected boolean holdingA = false;
     protected boolean holdingS = false;
     protected boolean holdingD = false;
+
+    boolean canPresF = false;
+    boolean fPressed = false;
 
     // I am speed (zrychlení)
     protected boolean holdingL = false;
@@ -82,7 +90,7 @@ public class My_Game {
     /**
      * initializes all objects
      */
-    private void init() {
+    private void init() throws IOException {
         // Set up an error callback. The default implementation
         // will print the error message in System.err.
         GLFWErrorCallback.createPrint(System.err).set();
@@ -155,7 +163,7 @@ public class My_Game {
         // Background color
         glClearColor(0f, 0f, 0f, 1.0f);
 
-        shaderProgram = ShaderUtils.loadProgram("/MY_GAME/simple");
+        shaderProgram = ShaderUtils.loadProgram("/MY_GAME/simple/simple");
 
         glUseProgram(this.shaderProgram);
 
@@ -165,6 +173,46 @@ public class My_Game {
                 .withAzimuth(Math.PI * 1.25)
                 .withZenith(Math.PI * -0.125);
 
+
+        // V init() metody My_Game:
+
+        float[] cubeVertices = {
+                // Pozice (x, y, z) - stačí 8 rohů kostky
+                -1.0f, -1.0f, -1.0f,
+                1.0f, -1.0f, -1.0f,
+                1.0f,  1.0f, -1.0f,
+                -1.0f,  1.0f, -1.0f,
+                -1.0f, -1.0f,  1.0f,
+                1.0f, -1.0f,  1.0f,
+                1.0f,  1.0f,  1.0f,
+                -1.0f,  1.0f,  1.0f
+        };
+
+        int[] cubeIndices = {
+                0, 1, 2, 2, 3, 0, // přední
+                4, 5, 6, 6, 7, 4, // zadní
+                0, 1, 5, 5, 4, 0, // spodní
+                2, 3, 7, 7, 6, 2, // horní
+                1, 2, 6, 6, 5, 1, // pravá
+                0, 3, 7, 7, 4, 0  // levá
+        };
+
+        OGLBuffers.Attrib[] attributes = {
+                new OGLBuffers.Attrib("inPosition", 3)
+        };
+
+        skyboxBuffers = new OGLBuffers(cubeVertices, attributes, cubeIndices);
+
+        String[] skyboxFiles = {
+                "res/textures/3.jpg",  // +X
+                "res/textures/5.jpg",  // -X
+                "res/textures/6.jpg",  // +Y
+                "res/textures/7.jpg",  // -Y
+                "res/textures/8.jpg",  // +Z
+                "res/textures/11.jpg"  // -Z
+        };
+        skybox = new OGLTextureCube(skyboxFiles);
+        skyboxShader = ShaderUtils.loadProgram("/MY_GAME/skybox");
 
 //        spawnPortal();
         System.out.println("Position of the portal is: " + portalPos.toString());
@@ -192,7 +240,17 @@ public class My_Game {
     private void loop() {
         while ( !glfwWindowShouldClose(window) ) {
 
-            // 1. Zpracování vstupu a pohybu
+            // 1. PŘÍPRAVA (Jen jednou a na začátku!)
+            glViewport(0, 0, width, height);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            // 2. SKYBOX
+            glDisable(GL_DEPTH_TEST);
+            glUseProgram(skyboxShader);
+            // ... (nastavení matice a skyboxBuffers.draw) ...
+            glEnable(GL_DEPTH_TEST);
+
+            // 3. LOGIKA (turn, cam.forward...)
             turn();
             cam = cam.forward(speed / 100.0);
             if (holdingL) cam = cam.forward(speed / 50.0);
@@ -216,12 +274,6 @@ public class My_Game {
             currentFov += (targetFov - currentFov) * 0.1;
 //            slowDown();
             proj = new Mat4PerspRH(currentFov, height / (double) width, 0.01, 1000.0);
-
-            // 2. Příprava OpenGL
-            glViewport(0, 0, width, height);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glEnable(GL_DEPTH_TEST);
-            glUseProgram(shaderProgram);
 
             // Předvýpočet matice pro asteroidy (ŠETŘÍ VÝKON)
             Mat4 viewProj = cam.getViewMatrix().mul(proj);
@@ -292,11 +344,10 @@ public class My_Game {
                     continue;
                 }
 
-
                 // TimeStop
                 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
                     speed = 0;
-                    ast.setVelocity(new  Vec3D(0, 0, 0));
+                    ast.setVelocity(new Vec3D(0, 0, 0));
                 } else {
                     speed = 30;
                 }
@@ -526,8 +577,6 @@ public class My_Game {
 // TODO zvuky ??
 // TODO palivo / životy lodě
 // TODO .mtl soubor (textura)
-// TODO F bude fungovat na zapínání, ne jenom po dobu držení
-
 
 
 // hotové věci z todo
