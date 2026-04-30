@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="lwjgl-samples:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="one of the last changes propably">
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="cleaning the code">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/lwjgl_samples_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lwjgl-samples.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/lwjgl_samples_jar/ahooj.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/artifacts/lwjgl_samples_jar/lwjgl-samples.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/artifacts/lwjgl_samples_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/res/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,43 +73,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.My_Game.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl0fixpipeline.p02elements.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl0fixpipeline.p03transforms.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl0fixpipeline.p05texture.App.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p00.p02withUtils.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p01start.p06depthbuffer.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p01start.p07text.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p02geometry.p01cube.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p02geometry.p03obj.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p03texture.p01intro.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p03texture.p03multiple.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p04target.p01intro.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;Application.lvl1basic.p04target.p03postproces.HelloWorld.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michal Prause/IdeaProjects/lwjgl-samples/res/textures&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "Application.HelloWorld.executor": "Run",
+    "Application.My_Game.executor": "Run",
+    "Application.lvl0fixpipeline.p02elements.App.executor": "Run",
+    "Application.lvl0fixpipeline.p03transforms.App.executor": "Run",
+    "Application.lvl0fixpipeline.p05texture.App.executor": "Run",
+    "Application.lvl1basic.p00.p02withUtils.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p01start.p06depthbuffer.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p01start.p07text.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p02geometry.p01cube.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p02geometry.p03obj.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p03texture.p01intro.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p03texture.p03multiple.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p04target.p01intro.HelloWorld.executor": "Run",
+    "Application.lvl1basic.p04target.p03postproces.HelloWorld.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Michal Prause/IdeaProjects/lwjgl-samples/res/textures",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\res\textures" />
@@ -233,7 +245,7 @@
       <workItem from="1777486026974" duration="522000" />
       <workItem from="1777529592784" duration="1774000" />
       <workItem from="1777535423444" duration="38000" />
-      <workItem from="1777550563141" duration="11343000" />
+      <workItem from="1777550563141" duration="15175000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -339,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777572110579</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="cleaning the code">
+      <option name="closed" value="true" />
+      <created>1777578101173</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1777578101173</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +396,8 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="final touches ?" />
     <MESSAGE value="one of the last changes propably" />
-    <option name="LAST_COMMIT_MESSAGE" value="one of the last changes propably" />
+    <MESSAGE value="cleaning the code" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaning the code" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
