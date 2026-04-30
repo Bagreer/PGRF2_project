@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="final touches ?">
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="one of the last changes propably">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" afterDir="false" />
@@ -233,7 +233,7 @@
       <workItem from="1777486026974" duration="522000" />
       <workItem from="1777529592784" duration="1774000" />
       <workItem from="1777535423444" duration="38000" />
-      <workItem from="1777550563141" duration="5615000" />
+      <workItem from="1777550563141" duration="11343000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -331,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777571240999</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="one of the last changes propably">
+      <option name="closed" value="true" />
+      <created>1777572110579</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1777572110579</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +375,8 @@
     <MESSAGE value="textures for ship" />
     <MESSAGE value="minor changes" />
     <MESSAGE value="final touches ?" />
-    <option name="LAST_COMMIT_MESSAGE" value="final touches ?" />
+    <MESSAGE value="one of the last changes propably" />
+    <option name="LAST_COMMIT_MESSAGE" value="one of the last changes propably" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
