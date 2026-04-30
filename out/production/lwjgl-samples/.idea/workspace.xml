@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="updating skybox">
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/asteroid.png" afterDir="false" />
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="textures for ship">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" afterDir="false" />
@@ -87,7 +87,7 @@
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michal Prause/IdeaProjects/lwjgl-samples/src/MY_GAME/textures&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michal Prause/IdeaProjects/lwjgl-samples/res/textures&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -102,6 +102,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\res\textures" />
+      <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\shaders\MY_GAME\simple\textures" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME\textures" />
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\src\MY_GAME" />
     </key>
@@ -228,6 +230,11 @@
       <workItem from="1777375616733" duration="10591000" />
       <workItem from="1777445618992" duration="9000" />
       <workItem from="1777459903690" duration="2633000" />
+      <workItem from="1777462925094" duration="7236000" />
+      <workItem from="1777486026974" duration="522000" />
+      <workItem from="1777529592784" duration="1774000" />
+      <workItem from="1777535423444" duration="38000" />
+      <workItem from="1777550563141" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -253,7 +260,63 @@
       <option name="project" value="LOCAL" />
       <updated>1777460373802</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="skybox done (texture)">
+      <option name="closed" value="true" />
+      <created>1777464254011</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1777464254011</updated>
+    </task>
+    <task id="LOCAL-00005" summary="removing unnecesarry files">
+      <option name="closed" value="true" />
+      <created>1777467757042</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467757042</updated>
+    </task>
+    <task id="LOCAL-00006" summary="adding more textures">
+      <option name="closed" value="true" />
+      <created>1777467775054</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467775054</updated>
+    </task>
+    <task id="LOCAL-00007" summary="preparing for spaceship texture">
+      <option name="closed" value="true" />
+      <created>1777467814284</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467814284</updated>
+    </task>
+    <task id="LOCAL-00008" summary="xml update">
+      <option name="closed" value="true" />
+      <created>1777467832017</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467832017</updated>
+    </task>
+    <task id="LOCAL-00009" summary="adding shaders for lasers and ship">
+      <option name="closed" value="true" />
+      <created>1777529946946</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1777529946946</updated>
+    </task>
+    <task id="LOCAL-00010" summary="textures for ship">
+      <option name="closed" value="true" />
+      <created>1777529976669</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1777529976669</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,18 +342,17 @@
     </ignored-roots>
     <MESSAGE value="first commit" />
     <MESSAGE value="preparing skybox textures" />
-    <option name="LAST_COMMIT_MESSAGE" value="preparing skybox textures" />
+    <MESSAGE value="skybox done (texture)" />
+    <MESSAGE value="removing unnecesarry files" />
+    <MESSAGE value="adding more textures" />
+    <MESSAGE value="preparing for spaceship texture" />
+    <MESSAGE value="xml update" />
+    <MESSAGE value="laser and ship textures" />
+    <MESSAGE value="adding shaders for lasers and ship" />
+    <MESSAGE value="textures for ship" />
+    <option name="LAST_COMMIT_MESSAGE" value="textures for ship" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/MY_GAME/My_Game.java</url>
-          <line>206</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="poleAsteroidu" language="JAVA" />

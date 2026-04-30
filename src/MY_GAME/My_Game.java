@@ -1,4 +1,5 @@
 package MY_GAME;
+import MY_GAME.objects.Arrow;
 import MY_GAME.objects.Asteroid;
 import MY_GAME.objects.Fragment;
 import MY_GAME.objects.Projectile;
@@ -46,8 +47,13 @@ public class My_Game {
     OGLTextureCube skybox;
     OGLBuffers skyboxBuffers; // Pro uložení geometrie kostky
     int skyboxShader;
-    OGLTexture2D asteroidTexture;
+    int shipShader, laserShader;
     OGLTexture2D spaceshipTexture;
+    int locMatLaser, locColorLaser; // Přidej toto k polím třídy
+
+    Arrow guideArrow;
+    // Pro upgrade
+    boolean upgradesUnlocked = false;
 
     // key status
     protected boolean holdingW = false;
@@ -175,8 +181,6 @@ public class My_Game {
                 .withAzimuth(Math.PI * 1.25)
                 .withZenith(Math.PI * -0.125);
 
-        asteroidTexture = new OGLTexture2D("MY_GAME/asteroid.png"); // Využijeme soubor, který už máš
-
         float[] cubeVertices = {
                 // Pozice (x, y, z) - stačí 8 rohů kostky
                 -1.0f, -1.0f, -1.0f,
@@ -204,6 +208,12 @@ public class My_Game {
 
         skyboxBuffers = new OGLBuffers(cubeVertices, attributes, cubeIndices);
 
+        // Načtení shaderů
+        laserShader = ShaderUtils.loadProgram("/MY_GAME/simple/laser");
+        locMatLaser = glGetUniformLocation(laserShader, "mat");
+        locColorLaser = glGetUniformLocation(laserShader, "laserColor");
+
+        shipShader = ShaderUtils.loadProgram("/MY_GAME/simple/ship");
         spaceshipTexture = new OGLTexture2D("res/textures/metal-texture.jpg");
 
         String[] skyboxFiles = {
@@ -214,25 +224,18 @@ public class My_Game {
                 "res/textures/seamlessSpace.png",  // +Z
                 "res/textures/seamlessSpace.png"  // -Z
         };
+
         skybox = new OGLTextureCube(skyboxFiles);
-// V metodě init() - změň cestu, aby obsahovala i složku 'simple'
         skyboxShader = ShaderUtils.loadProgram("/MY_GAME/simple/skybox");
-//        spawnPortal();
+        spawnPortal();
         System.out.println("Position of the portal is: " + portalPos.toString());
-//
-//        cam = cam.withPosition(new Vec3D(10, 10, 5))
-//                .withAzimuth(Math.toRadians(-90))
-//                .withZenith(Math.toRadians(90));
-
-
 
         glDisable(GL_CULL_FACE);
-
 
         // TADY TEPRVE NAČTEME LOĎ (Karta už běží)
         spaceship = new OGLModelOBJ("/MY_GAME/objects/Spaceship.obj");
         portal =  new OGLModelOBJ("/MY_GAME/objects/Portal.obj");
-
+        guideArrow = new Arrow();
 
         generateAsteroids();
     }
@@ -273,14 +276,26 @@ public class My_Game {
             turn();
             cam = cam.forward(speed / 100.0);
 
-            // 4. VYKRESLENÍ OBJEKTŮ (Tady přepneme texturu!)
-            glUseProgram(shaderProgram);
-            // KLÍČOVÝ KROK: Nabindujeme texturu asteroidu, aby "přebila" Skybox
-            asteroidTexture.bind(shaderProgram, "drawTexture", 0);
+            // 4. VYKRESLENÍ LASERŮ
+            glUseProgram(laserShader); // Aktivujeme správný shader
+
+
+            for (int i = projectiles.size() - 1; i >= 0; i--) {
+                Projectile p = projectiles.get(i);
+                p.move();
+                if (p.getPosition().sub(cam.getPosition()).length() > 300) {
+                    projectiles.remove(i);
+                } else {
+                    // Použijeme locMatLaser místo locMat!
+                    glUniformMatrix4fv(locMatLaser, false,
+                            ToFloatArray.convert(p.getModelMatrix().mul(proj)));
+                    p.getBuffers().draw(GL_TRIANGLES, laserShader); // Kreslíme laser shaderem
+                }
+            }
+
+            glUseProgram(shaderProgram); // Přepneme zpět na hlavní shader
 
             Mat4 viewProj = cam.getViewMatrix().mul(proj);
-            // ... následuje tvůj cyklus pro asteroidy ...
-            // Střelba
             if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && canShoot) {
                 Mat4 viewMat = cam.getViewMatrix();
                 Vec3D camRight = new Vec3D(viewMat.get(0, 0), viewMat.get(1, 0), viewMat.get(2, 0));
@@ -293,29 +308,46 @@ public class My_Game {
                 canShoot = true;
             }
 
+
+
+            glUniform3f(locColorLaser, 1.0f, 1.0f, 0.0f); // Žlutá pro šipku
+
+// Výpočet matice pro šipku (zůstává stejný)
+            Vec3D toPortal = portalPos.sub(cam.getPosition());
+            Point3D localDir = new Point3D(toPortal).mul(cam.getViewMatrix());
+            double azimut = Math.atan2(localDir.getY(), localDir.getX());
+            double zenit = Math.atan2(localDir.getZ(), Math.sqrt(localDir.getX() * localDir.getX() + localDir.getY() * localDir.getY()));
+
+            Mat4 maticeSipka = new Mat4Scale(0.1)
+                    .mul(new Mat4RotZ(azimut))
+                    .mul(new Mat4RotY(-zenit))
+                    .mul(new Mat4Transl(0.0, 1.3, -4.0)) // Pozice: mírně nad středem obrazovky
+                    .mul(proj);
+
+// KRESLÍME ŠIPKU
+            glUniformMatrix4fv(locMatLaser, false, ToFloatArray.convert(maticeSipka));
+            guideArrow.getBuffers().draw(GL_TRIANGLES, laserShader); // Voláme buffers ŠIPKY, ne projektilu!
+
+            glUseProgram(shaderProgram); // Až teď návrat k hlavnímu shaderu
+
+
             // FOV a zpomalení
             double targetFov = holdingL ? Math.PI / 3 : Math.PI / 4;
             currentFov += (targetFov - currentFov) * 0.1;
-//            slowDown();
             proj = new Mat4PerspRH(currentFov, height / (double) width, 0.01, 1000.0);
 
-            // Předvýpočet matice pro asteroidy (ŠETŘÍ VÝKON)
             viewProj = cam.getViewMatrix().mul(proj);
 
-//            System.out.println("Camera position: " + cam.getPosition());
 
             // 3. VYKRESLENÍ SVĚTA A ASTEROIDŮ
+            glUseProgram(shaderProgram);
+
             for (int i = poleAsteroidu.size() - 1; i >= 0; i--) {
                 Asteroid ast = poleAsteroidu.get(i);
                 Vec3D astPos = ast.getPosition();
 
                 // V loop() uvnitř cyklu asteroidů:
                 double dist = astPos.sub(cam.getPosition()).length();
-
-//                System.out.println("cam position: " + cam.getPosition());
-//                System.out.println("Asteroid position: " + astPos.toString());
-//                System.out.println("distance from camera: " + dist);
-//                System.out.println("distance: " + dist);
 
                 if (dist > 150.0) {
                     // 1. Vygenerujeme náhodný bod v krychli -1 až 1
@@ -332,14 +364,10 @@ public class My_Game {
                         mag = 1;
                     } // Sychr proti nule
 
-//                    System.out.println("asteroid DELETED (" + astPos.toString() + ")");
-
                     Vec3D smer = new Vec3D(rx / mag, ry / mag, rz / mag);
 
-                    // 3. Spawnovací poloměr (těsně pod limitem 150)
                     double r = 145.0;
 
-                    // 4. KLÍČOVÝ KROK: Nová pozice je VŽDY relativní k aktuální kameře
                     ast.setPosition(cam.getPosition().add(smer.mul(r)));
                     continue;
                 }
@@ -405,37 +433,6 @@ public class My_Game {
                 }
             }
 
-            // 5. VYKRESLENÍ LODĚ (HUD)
-            Mat4 modelLod = new Mat4Scale(0.1)
-                    .mul(new Mat4RotY(Math.toRadians(180)))
-                    .mul(new Mat4RotX(Math.toRadians(5)));
-
-            // Přidání náklonu při zatáčení
-            if (holdingA) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(10)));
-            if (holdingD) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(-10)));
-
-            // HUD
-            modelLod = modelLod.mul(new Mat4Transl(0.0, -1.0, -4.0));
-            glUniformMatrix4fv(locMat, false, ToFloatArray.convert(modelLod.mul(proj)));
-            spaceshipTexture.bind(shaderProgram, "drawTexture", 0);
-            spaceship.getBuffers().draw(spaceship.getTopology(), shaderProgram);
-
-
-            // 6. VYKRESLENÍ PORTÁLU
-            Mat4 maticePortal = new Mat4Scale(2.5) // Trochu menší, jak jsi chtěl
-                    .mul(new Mat4RotY(Math.PI/2)) // Natočení čelem k lodi
-                    .mul(new Mat4Transl(portalPos))   // Přesun na náhodnou pozici
-                    .mul(viewProj);                   // Projekce a kamera
-
-            glUniformMatrix4fv(locMat, false, ToFloatArray.convert(maticePortal));
-            portal.getBuffers().draw(portal.getTopology(), shaderProgram);
-
-            double distToPortal = cam.getPosition().sub(portalPos).length();
-            if (distToPortal < 5) {
-                System.out.println("YOU WIN!!!");
-                glfwSetWindowShouldClose(window, true);
-            }
-
             // VYKRESLENÍ ÚLOMKŮ
             for (int i = fragments.size() - 1; i >= 0; i--) {
                 Fragment u = fragments.get(i);
@@ -447,6 +444,49 @@ public class My_Game {
                     u.getBuffers().draw(GL_TRIANGLES, shaderProgram);
                 }
             }
+
+
+
+            glUseProgram(shipShader);
+            spaceshipTexture.bind(shipShader, "shipTexture", 0);
+            // 5. VYKRESLENÍ LODĚ (HUD)
+            Mat4 modelLod = new Mat4Scale(0.1)
+                    .mul(new Mat4RotY(Math.toRadians(180)))
+                    .mul(new Mat4RotX(Math.toRadians(5)));
+
+            // Přidání náklonu při zatáčení
+            if (holdingA) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(10)));
+            if (holdingD) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(-10)));
+
+            // HUD
+
+
+            modelLod = modelLod.mul(new Mat4Transl(0.0, -1.0, -4.0));
+            glUniformMatrix4fv(locMat, false, ToFloatArray.convert(modelLod.mul(proj)));
+            glUniformMatrix4fv(glGetUniformLocation(shipShader, "mat"), false,
+                    ToFloatArray.convert(modelLod.mul(proj)));
+            spaceship.getBuffers().draw(spaceship.getTopology(), shipShader);
+
+
+            // 6. VYKRESLENÍ PORTÁLU
+            Mat4 maticePortal = new Mat4Scale(2.5) // Trochu menší, jak jsi chtěl
+                    .mul(new Mat4RotY(Math.PI/2)) // Natočení čelem k lodi
+                    .mul(new Mat4Transl(portalPos))   // Přesun na náhodnou pozici
+                    .mul(viewProj);                   // Projekce a kamera
+
+            glUniformMatrix4fv(locMat, false, ToFloatArray.convert(maticePortal));
+            portal.getBuffers().draw(portal.getTopology(), shaderProgram);
+
+
+            double distToPortal = cam.getPosition().sub(portalPos).length();
+            int portalDistance = (int) distToPortal;
+            System.out.println("distance to portal " +  portalDistance);
+            if (distToPortal < 5) {
+                System.out.println("YOU WIN!!!");
+                glfwSetWindowShouldClose(window, true);
+            }
+
+
 
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -500,14 +540,13 @@ public class My_Game {
      * randomly generates portal coords
      */
     void spawnPortal() {
-        // Náhodný úhel kolem dokola (360°)
         double alpha = Math.random() * 2 * Math.PI;
 
         // Omezíme výšku (beta) jen na malý rozptyl kolem roviny (např. +/- 5 stupňů)
         // Aby nebyl přesně v nule, což je nuda, ale ani nad hlavou
         double beta = (Math.random() - 0.5) * Math.toRadians(10);
 
-        double dist = 800.0; // Vzdálenost
+        double dist = 500.0; // Vzdálenost
 
         double px = Math.cos(beta) * Math.cos(alpha) * dist;
         double py = Math.sin(beta) * dist;
@@ -549,7 +588,6 @@ public class My_Game {
         turnLeft();
         turnRight();
     }
-
     float TURNING_RATE_IN_DEGREES = (float) Math.toRadians(1.0); // 0,5 - 1 je celkem fajn
     public void turnLeft() {
         if (holdingA) {
@@ -586,9 +624,9 @@ public class My_Game {
 // TODO more complicated gameplay (levely nebo portál dále)
 // TODO infobox (autor a nějaké další blbosti) start,options,quit (jakoby asi mam infobox, ale aspoň ten endscreen)
 // TODO palivo / životy lodě
-// TODO .mtl soubor (textura)
+// TODO spustitelný soubor
 
-
+// .mtl soubor (textura)
 // nevyřešeno
 // zvuky
 // otáčení kamery nezávisle na prostoru

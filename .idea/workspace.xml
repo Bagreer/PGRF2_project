@@ -4,30 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="skybox done (texture)">
-      <change afterPath="$PROJECT_DIR$/res/textures/metal-texture.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/metal-texture.jpg" afterDir="false" />
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="textures for ship">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/simple/textures/8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/shaders/MY_GAME/simple/textures/8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/textures/8.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MY_GAME/objects/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/objects/Arrow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,43 +64,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.HelloWorld.executor": "Run",
-    "Application.My_Game.executor": "Run",
-    "Application.lvl0fixpipeline.p02elements.App.executor": "Run",
-    "Application.lvl0fixpipeline.p03transforms.App.executor": "Run",
-    "Application.lvl0fixpipeline.p05texture.App.executor": "Run",
-    "Application.lvl1basic.p00.p02withUtils.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p01start.p06depthbuffer.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p01start.p07text.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p02geometry.p01cube.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p02geometry.p03obj.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p03texture.p01intro.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p03texture.p03multiple.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p04target.p01intro.HelloWorld.executor": "Run",
-    "Application.lvl1basic.p04target.p03postproces.HelloWorld.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Michal Prause/IdeaProjects/lwjgl-samples/res/textures",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.My_Game.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl0fixpipeline.p02elements.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl0fixpipeline.p03transforms.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl0fixpipeline.p05texture.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p00.p02withUtils.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p01start.p06depthbuffer.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p01start.p07text.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p02geometry.p01cube.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p02geometry.p03obj.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p03texture.p01intro.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p03texture.p03multiple.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p04target.p01intro.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.lvl1basic.p04target.p03postproces.HelloWorld.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Michal Prause/IdeaProjects/lwjgl-samples/res/textures&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Michal Prause\IdeaProjects\lwjgl-samples\res\textures" />
@@ -248,7 +231,11 @@
       <workItem from="1777375616733" duration="10591000" />
       <workItem from="1777445618992" duration="9000" />
       <workItem from="1777459903690" duration="2633000" />
-      <workItem from="1777462925094" duration="4085000" />
+      <workItem from="1777462925094" duration="7236000" />
+      <workItem from="1777486026974" duration="522000" />
+      <workItem from="1777529592784" duration="1774000" />
+      <workItem from="1777535423444" duration="38000" />
+      <workItem from="1777550563141" duration="3103000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -282,7 +269,55 @@
       <option name="project" value="LOCAL" />
       <updated>1777464254011</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="removing unnecesarry files">
+      <option name="closed" value="true" />
+      <created>1777467757042</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467757042</updated>
+    </task>
+    <task id="LOCAL-00006" summary="adding more textures">
+      <option name="closed" value="true" />
+      <created>1777467775054</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467775054</updated>
+    </task>
+    <task id="LOCAL-00007" summary="preparing for spaceship texture">
+      <option name="closed" value="true" />
+      <created>1777467814284</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467814284</updated>
+    </task>
+    <task id="LOCAL-00008" summary="xml update">
+      <option name="closed" value="true" />
+      <created>1777467832017</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1777467832017</updated>
+    </task>
+    <task id="LOCAL-00009" summary="adding shaders for lasers and ship">
+      <option name="closed" value="true" />
+      <created>1777529946946</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1777529946946</updated>
+    </task>
+    <task id="LOCAL-00010" summary="textures for ship">
+      <option name="closed" value="true" />
+      <created>1777529976669</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1777529976669</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,7 +344,14 @@
     <MESSAGE value="first commit" />
     <MESSAGE value="preparing skybox textures" />
     <MESSAGE value="skybox done (texture)" />
-    <option name="LAST_COMMIT_MESSAGE" value="skybox done (texture)" />
+    <MESSAGE value="removing unnecesarry files" />
+    <MESSAGE value="adding more textures" />
+    <MESSAGE value="preparing for spaceship texture" />
+    <MESSAGE value="xml update" />
+    <MESSAGE value="laser and ship textures" />
+    <MESSAGE value="adding shaders for lasers and ship" />
+    <MESSAGE value="textures for ship" />
+    <option name="LAST_COMMIT_MESSAGE" value="textures for ship" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
