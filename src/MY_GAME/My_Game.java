@@ -55,6 +55,8 @@ public class My_Game {
 
     int arrowShader, locMatArrow, locColorArrow;
 
+    boolean isDead = false;
+
 
     // key status
     protected boolean holdingW = false;
@@ -76,6 +78,8 @@ public class My_Game {
     OGLModelOBJ portal;
     OGLBuffers buffers;
 
+    private double startTime;
+
     int shaderProgram, locMat;
 
     // camera things
@@ -94,7 +98,7 @@ public class My_Game {
 
     Vec3D portalPos = new  Vec3D(500,0,0);
 
-    double time = glfwGetTime();
+    private OGLTextRenderer textRenderer;
 
     /**
      * initializes all objects
@@ -243,7 +247,17 @@ public class My_Game {
         portal =  new OGLModelOBJ("/MY_GAME/objects/Portal.obj");
         guideArrow = new Arrow();
 
+        startTime = glfwGetTime();
         generateAsteroids();
+
+        textRenderer = new OGLTextRenderer(width, height);
+
+        System.out.println("--------------------------------");
+        System.out.println("PGRF2 Project - Space Shooter");
+        System.out.println("Author: Michal Prause");
+        System.out.println("Version: 1.0 (Final Build)");
+        System.out.println("--------------------------------");
+
     }
 
     /**
@@ -252,6 +266,23 @@ public class My_Game {
     private void loop() {
         while ( !glfwWindowShouldClose(window) ) {
 
+            if (isDead) {
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+                // Tady to padalo - ujisti se, že textRenderer není null
+                if (textRenderer != null) {
+                    textRenderer.addStr2D(width / 2 - 50, height / 2, "GAME OVER");
+                    textRenderer.addStr2D(width / 2 - 80, height / 2 + 30, "Stiskni R pro restart");
+                    textRenderer.draw(); // DŮLEŽITÉ: U textRendereru se často musí volat i draw()!
+                }
+
+                if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+                    isDead = false;
+                    cam.withPosition(new Vec3D(0, 0, 0));
+                    startTime = glfwGetTime();
+                }
+                return;
+            }
 
             // 1. NEJDŘÍV PŘÍPRAVA
             glViewport(0, 0, width, height);
@@ -426,9 +457,8 @@ public class My_Game {
                 Point3D astKamera = new Point3D(astPos).mul(cam.getViewMatrix());
                 double distShip = Math.sqrt(Math.pow(astKamera.getX(), 2) + Math.pow(astKamera.getY() + 1.2, 2) + Math.pow(astKamera.getZ() + 4.0, 2));
                 if (distShip <= ast.getScale() + ast.getScale() / 10) {
-                    System.out.println("YOU LOSE");
-                    glfwSetWindowShouldClose(window, true);
-                    return;
+                    System.out.println("YOU LOST");
+                    isDead = true;
                 }
 
                 // Kreslení asteroidu
@@ -475,9 +505,11 @@ public class My_Game {
             if (holdingA) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(10)));
             if (holdingD) modelLod = modelLod.mul(new Mat4RotZ(Math.toRadians(-10)));
 
+            if (glfwGetTime() - startTime > 30.0) {
+                speed = 60; // Prostě jen přepíšeme stávající proměnnou rychlosti
+            }
+
             // HUD
-
-
             modelLod = modelLod.mul(new Mat4Transl(0.0, -1.0, -4.0));
             glUniformMatrix4fv(locMat, false, ToFloatArray.convert(modelLod.mul(proj)));
             glUniformMatrix4fv(glGetUniformLocation(shipShader, "mat"), false,
@@ -493,17 +525,6 @@ public class My_Game {
 
             glUniformMatrix4fv(locMat, false, ToFloatArray.convert(maticePortal));
             portal.getBuffers().draw(portal.getTopology(), shaderProgram);
-
-
-            double distToPortal = cam.getPosition().sub(portalPos).length();
-            int portalDistance = (int) distToPortal;
-            System.out.println("distance to portal " +  portalDistance);
-            if (distToPortal < 5) {
-                System.out.println("YOU WIN!!!");
-                glfwSetWindowShouldClose(window, true);
-            }
-
-
 
             glfwSwapBuffers(window);
             glfwPollEvents();
