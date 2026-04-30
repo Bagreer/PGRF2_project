@@ -52,8 +52,9 @@ public class My_Game {
     int locMatLaser, locColorLaser; // Přidej toto k polím třídy
 
     Arrow guideArrow;
-    // Pro upgrade
-    boolean upgradesUnlocked = false;
+
+    int arrowShader, locMatArrow, locColorArrow;
+
 
     // key status
     protected boolean holdingW = false;
@@ -213,6 +214,11 @@ public class My_Game {
         locMatLaser = glGetUniformLocation(laserShader, "mat");
         locColorLaser = glGetUniformLocation(laserShader, "laserColor");
 
+        arrowShader = ShaderUtils.loadProgram("/MY_GAME/simple/arrow");
+        locMatArrow = glGetUniformLocation(arrowShader, "mat");
+        locColorArrow = glGetUniformLocation(arrowShader, "arrowColor");
+
+
         shipShader = ShaderUtils.loadProgram("/MY_GAME/simple/ship");
         spaceshipTexture = new OGLTexture2D("res/textures/metal-texture.jpg");
 
@@ -310,25 +316,37 @@ public class My_Game {
 
 
 
-            glUniform3f(locColorLaser, 1.0f, 1.0f, 0.0f); // Žlutá pro šipku
+            // --- 7. VYKRESLENÍ NAVÁDĚCÍ ŠIPKY (Vlastní Shader) ---
+            glUseProgram(arrowShader);
+            glUniform3f(locColorArrow, 1.0f, 0.0f, 0.0f); // Žlutá barva
 
-// Výpočet matice pro šipku (zůstává stejný)
-            Vec3D toPortal = portalPos.sub(cam.getPosition());
-            Point3D localDir = new Point3D(toPortal).mul(cam.getViewMatrix());
-            double azimut = Math.atan2(localDir.getY(), localDir.getX());
-            double zenit = Math.atan2(localDir.getZ(), Math.sqrt(localDir.getX() * localDir.getX() + localDir.getY() * localDir.getY()));
+            /// 1. Směr k portálu ve světě a transformace do prostoru kamery (w=0)
+            Vec3D directionWorld = portalPos.sub(cam.getPosition());
+            Point3D res = new Point3D(directionWorld.getX(), directionWorld.getY(), directionWorld.getZ(), 0.0)
+                    .mul(cam.getViewMatrix());
+            Vec3D localDir = new Vec3D(res.getX(), res.getY(), res.getZ());
 
-            Mat4 maticeSipka = new Mat4Scale(0.1)
-                    .mul(new Mat4RotZ(azimut))
-                    .mul(new Mat4RotY(-zenit))
-                    .mul(new Mat4Transl(0.0, 1.3, -4.0)) // Pozice: mírně nad středem obrazovky
-                    .mul(proj);
+// 2. Výpočet úhlů relativně k dopřednému směru (-Z)
+// Yaw: Jak moc je portál vlevo/vpravo od středu
+            double yaw = Math.atan2(localDir.getX(), -localDir.getZ());
+// Pitch: Jak moc je portál nad/pod středem
+            double pitch = -Math.atan2(localDir.getY(), Math.sqrt(localDir.getX() * localDir.getX() + localDir.getZ() * localDir.getZ()));
 
-// KRESLÍME ŠIPKU
-            glUniformMatrix4fv(locMatLaser, false, ToFloatArray.convert(maticeSipka));
-            guideArrow.getBuffers().draw(GL_TRIANGLES, laserShader); // Voláme buffers ŠIPKY, ne projektilu!
+// 3. Sestavení matice (Matice jdou v pořadí od modelu k obrazovce)
+            Mat4 maticeSipka = new Mat4Scale(0.5) // 1. Zmenšíme
+                    .mul(new Mat4RotY(-Math.PI / 2.0)) // 2. Otočíme základní model (+X) tak, aby mířil dopředu (-Z)
+                    .mul(new Mat4RotY(yaw))            // 3. Otočíme vlevo/vpravo
+                    .mul(new Mat4RotX(pitch))           // 4. Nakloníme nahoru/dolů
+                    .mul(new Mat4Transl(0.0, 1.2, -4.0)) // 5. Posuneme v HUDu
+                    .mul(proj);                          // 6. Promítneme
 
-            glUseProgram(shaderProgram); // Až teď návrat k hlavnímu shaderu
+            glUseProgram(arrowShader);
+            glUniformMatrix4fv(locMatArrow, false, ToFloatArray.convert(maticeSipka));
+            guideArrow.getBuffers().draw(GL_TRIANGLES, arrowShader);
+
+
+            // Návrat k hlavnímu shaderu pro další snímek
+            glUseProgram(shaderProgram);
 
 
             // FOV a zpomalení
@@ -446,7 +464,6 @@ public class My_Game {
             }
 
 
-
             glUseProgram(shipShader);
             spaceshipTexture.bind(shipShader, "shipTexture", 0);
             // 5. VYKRESLENÍ LODĚ (HUD)
@@ -549,8 +566,8 @@ public class My_Game {
         double dist = 500.0; // Vzdálenost
 
         double px = Math.cos(beta) * Math.cos(alpha) * dist;
-        double py = Math.sin(beta) * dist;
-        double pz = Math.cos(beta) * Math.sin(alpha) * dist;
+        double pz = Math.random() * 100;
+        double py = Math.cos(beta) * Math.sin(alpha) * dist;
 
         portalPos = new Vec3D(px, py, pz);
 
@@ -620,10 +637,7 @@ public class My_Game {
 
 // TODO uklidit kód
 // TODO upgrady
-// TODO šipka navádějící k portálu
-// TODO more complicated gameplay (levely nebo portál dále)
 // TODO infobox (autor a nějaké další blbosti) start,options,quit (jakoby asi mam infobox, ale aspoň ten endscreen)
-// TODO palivo / životy lodě
 // TODO spustitelný soubor
 
 // .mtl soubor (textura)
@@ -652,3 +666,5 @@ public class My_Game {
 
 // skybox
 // skybox upscaling + pohyb
+
+// šipka navádějící k portálu

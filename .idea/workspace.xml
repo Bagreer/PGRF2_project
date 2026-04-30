@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="textures for ship">
+    <list default="true" id="68d37fe6-c347-4a34-9461-0632289ab1f1" name="Changes" comment="minor changes">
+      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/arrow.frag" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/arrow.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lwjgl-samples/MY_GAME/My_Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/MY_GAME/simple/laser.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/MY_GAME/simple/laser.frag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/My_Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MY_GAME/objects/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MY_GAME/objects/Arrow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +236,7 @@
       <workItem from="1777486026974" duration="522000" />
       <workItem from="1777529592784" duration="1774000" />
       <workItem from="1777535423444" duration="38000" />
-      <workItem from="1777550563141" duration="3103000" />
+      <workItem from="1777550563141" duration="4721000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -317,7 +318,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777529976669</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="minor changes">
+      <option name="closed" value="true" />
+      <created>1777569582285</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1777569582285</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +360,8 @@
     <MESSAGE value="laser and ship textures" />
     <MESSAGE value="adding shaders for lasers and ship" />
     <MESSAGE value="textures for ship" />
-    <option name="LAST_COMMIT_MESSAGE" value="textures for ship" />
+    <MESSAGE value="minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
